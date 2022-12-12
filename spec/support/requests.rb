@@ -2,11 +2,13 @@
 
 require 'rack/test'
 
-RSpec.shared_context 'Hanami app' do # rubocop:disable RSpec/ContextWording
+RSpec.shared_context 'with the shared context' do
   let(:app) { Hanami.app }
+
+  def parsed_body = JSON.parse(last_response.body)
 end
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods, type: :request
-  config.include_context 'Hanami app', type: :request
+  config.include_context 'with the shared context', type: :request
 end
