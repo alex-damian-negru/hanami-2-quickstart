@@ -1,12 +1,19 @@
 # frozen_string_literal: true
 
 RSpec.describe 'GET /books', type: :request do
+  let(:books) { app['persistence.rom'].relations[:books] }
+
+  before do
+    books.insert(title: 'Practical Object-Oriented Design in Ruby', author: 'Sandi Metz')
+    books.insert(title: 'Test Driven Development', author: 'Kent Beck')
+  end
+
   it 'returns a list of books' do
     get '/books'
 
     expected_body = [
-      { 'title' => 'Test Driven Development' },
-      { 'title' => 'Practical Object-Oriented Design in Ruby' }
+      { 'title' => 'Practical Object-Oriented Design in Ruby', 'author' => 'Sandi Metz' },
+      { 'title' => 'Test Driven Development', 'author' => 'Kent Beck' }
     ]
 
     expect(last_response).to be_successful

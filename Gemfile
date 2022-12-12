@@ -11,6 +11,10 @@ gem 'dry-types', '~> 1.0', '>= 1.6.1'
 gem 'puma'
 gem 'rake'
 
+gem 'pg', '~> 1.4', '>= 1.4.5'
+gem 'rom', '~> 5.3'
+gem 'rom-sql', '~> 3.6', '>= 3.6.1'
+
 group :development, :test do
   gem 'dotenv'
   gem 'rubocop', '~> 1.40'
@@ -32,5 +36,6 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner-sequel', '~> 2.0', '>= 2.0.2'
   gem 'rack-test'
 end
