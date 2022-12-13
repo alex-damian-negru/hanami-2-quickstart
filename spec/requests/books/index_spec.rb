@@ -12,8 +12,8 @@ RSpec.describe 'GET /books', type: :request do
     get '/books'
 
     expected_body = [
-      { 'title' => 'Practical Object-Oriented Design in Ruby', 'author' => 'Sandi Metz' },
-      { 'title' => 'Test Driven Development', 'author' => 'Kent Beck' }
+      { title: 'Practical Object-Oriented Design in Ruby', author: 'Sandi Metz' },
+      { title: 'Test Driven Development', author: 'Kent Beck' }
     ]
 
     expect(last_response).to be_successful

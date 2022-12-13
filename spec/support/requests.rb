@@ -5,7 +5,7 @@ require 'rack/test'
 RSpec.shared_context 'with the shared context' do
   let(:app) { Hanami.app }
 
-  def parsed_body = JSON.parse(last_response.body)
+  def parsed_body = JSON.parse(last_response.body, symbolize_names: true)
 end
 
 RSpec.configure do |config|
