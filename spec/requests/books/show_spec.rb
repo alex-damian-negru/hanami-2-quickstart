@@ -1,0 +1,29 @@
+# frozen_string_literal: true
+
+require 'spec_helper'
+
+RSpec.describe 'GET /books/:id', type: %i[request database] do
+  let(:books) { app['persistence.rom'].relations[:books] }
+
+  context 'when a book matches the given id' do
+    let!(:book_id) { books.insert(title: 'Test Driven Development', author: 'Kent Beck') }
+
+    it 'renders the book' do
+      get "/books/#{book_id}"
+
+      expect(last_response).to be_successful
+      expect(last_response.content_type).to eq('application/json; charset=utf-8')
+      expect(parsed_body).to eq(id: book_id, title: 'Test Driven Development', author: 'Kent Beck')
+    end
+  end
+
+  context 'when no book matches the given id' do
+    it 'returns not found' do
+      get '/books/0'
+
+      expect(last_response).to be_not_found
+      expect(last_response.content_type).to eq('application/json; charset=utf-8')
+      expect(parsed_body).to eq(error: 'not_found')
+    end
+  end
+end
